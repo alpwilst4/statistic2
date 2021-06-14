@@ -12,7 +12,7 @@ func main() {
 	var y_test []float64
 	var x_egitim []float64
 	var x_test []float64
-	var x1 = []float64{100, 110, 112, 115, 117, 116, 118, 120, 121, 120, 117, 123}
+	var x1 = []float64{100, 110, 112, 115, 117, 116, 118, 129, 121, 120, 119, 123}
 	var x2 = []float64{30, 35, 22, 29, 6, 38, 40, 43, 32, 45, 50, 20}
 	var y = []float64{5.5, 5.8, 6, 5.9, 6.2, 6.3, 6.5, 6.6, 6.4, 6.5, 6.7, 6.8}
 	var y1_egitim []float64
@@ -23,6 +23,8 @@ func main() {
 	var x2_egitim []float64
 	var x2_test []float64
 	var y2_test []float64
+	var dizi []int
+
 	egitimBoyutu := int(float64(len(x1)) / 100 * 70)
 	testBoyutu := len(x1) - egitimBoyutu
 
@@ -31,11 +33,24 @@ func main() {
 		min := 0
 		max := len(x1) - 1
 		randomNumber := rand.Intn(max-min+1) + min
+		control := 0
+		for k := 0; k < len(dizi); k++ {
 
-		x1_egitim = append(x1_egitim, x1[randomNumber])
-		y1_egitim = append(y1_egitim, y[randomNumber])
-		x2_egitim = append(x2_egitim, x2[randomNumber])
-		y2_egitim = append(y2_egitim, y[randomNumber])
+			if randomNumber == dizi[k] {
+				control = 1
+				i--
+
+			}
+
+		}
+		if control == 0 {
+			dizi = append(dizi, randomNumber)
+			x1_egitim = append(x1_egitim, x1[randomNumber])
+			y1_egitim = append(y1_egitim, y[randomNumber])
+			x2_egitim = append(x2_egitim, x2[randomNumber])
+			y2_egitim = append(y2_egitim, y[randomNumber])
+
+		}
 
 	}
 	for i := 0; i < testBoyutu; i++ {
@@ -43,11 +58,24 @@ func main() {
 		min := 0
 		max := len(x1) - 1
 		randomNumber := rand.Intn(max-min+1) + min
+		control := 0
+		for k := 0; k < len(dizi); k++ {
 
-		x1_test = append(x1_test, x1[randomNumber])
-		y1_test = append(y1_test, y[randomNumber])
-		x2_test = append(x2_test, x2[randomNumber])
-		y2_test = append(y2_test, y[randomNumber])
+			if randomNumber == dizi[k] {
+				control = 1
+				i--
+
+			}
+
+		}
+		if control == 0 {
+			dizi = append(dizi, randomNumber)
+			x1_test = append(x1_test, x1[randomNumber])
+			y1_test = append(y1_test, y[randomNumber])
+			x2_test = append(x2_test, x2[randomNumber])
+			y2_test = append(y2_test, y[randomNumber])
+
+		}
 
 	}
 
@@ -74,22 +102,22 @@ func main() {
 		y_egitim = y2_egitim
 		y_test = y2_test
 	}
-	ssh_egitim := 0.0
-	ssh_test := 0.0
+	sse_egitim := 0.0
+	sse_test := 0.0
 	a, b := functions.Regression(x1_egitim[:], y1_egitim[:], ortalamaX, ortalamaY)
 	fmt.Println("Eğitim")
 	for i := 0; i < len(x_egitim); i++ {
 		yi := a + b*x_egitim[i]
-		ssh_egitim = ssh_egitim + (y_egitim[i]-yi)*(y_egitim[i]-yi)
+		sse_egitim = sse_egitim + (y_egitim[i]-yi)*(y_egitim[i]-yi)
 		fmt.Print(x_egitim[i], yi, "\n")
 	}
-	fmt.Println(ssh_egitim)
+	fmt.Println(sse_egitim)
 
 	fmt.Println("Test")
 	for i := 0; i < len(x_test); i++ {
 		yi := a + b*x_test[i]
-		ssh_test = ssh_test + (y_test[i]-yi)*(y_test[i]-yi)
+		sse_test = sse_test + (y_test[i]-yi)*(y_test[i]-yi)
 		fmt.Print(x_test[i], yi, "\n")
 	}
-	fmt.Println(ssh_test)
+	fmt.Println(sse_test)
 }
