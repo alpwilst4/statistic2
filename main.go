@@ -72,7 +72,7 @@ func main() {
 		x_egitim = x2_egitim
 		x_test = x2_test
 		y_egitim = y2_egitim
-		y_test = y2_egitim
+		y_test = y2_test
 	}
 	ssh_egitim := 0.0
 	ssh_test := 0.0
