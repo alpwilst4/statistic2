@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func Regression(dataSetX []float64, dataSetY []float64, ortalamaX float64, ortalamaY float64, sdX float64, sdY float64) float64 {
+func Regression(dataSetX []float64, dataSetY []float64, ortalamaX float64, ortalamaY float64) (float64, float64) {
 	sonuc1 := 0.0
 	sonucToplamX := 0.0
 	sonucToplamY := 0.0
@@ -24,7 +24,7 @@ func Regression(dataSetX []float64, dataSetY []float64, ortalamaX float64, ortal
 
 	a := ortalamaY - (b * ortalamaX)
 
-	fmt.Println(b)
-	return a
+	fmt.Println(a)
 
+	return a, b
 }
