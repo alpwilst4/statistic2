@@ -1,9 +1,5 @@
 package functions
 
-import (
-	"fmt"
-)
-
 func Regression(dataSetX []float64, dataSetY []float64, ortalamaX float64, ortalamaY float64) (float64, float64) {
 	sonuc1 := 0.0
 	sonucToplamX := 0.0
@@ -23,8 +19,6 @@ func Regression(dataSetX []float64, dataSetY []float64, ortalamaX float64, ortal
 	b := (sonuc1 - (sonucToplamX * sonucToplamY)) / (sonucKareToplamX - (sonucToplamX * sonucToplamX))
 
 	a := ortalamaY - (b * ortalamaX)
-
-	fmt.Println(a)
 
 	return a, b
 }
